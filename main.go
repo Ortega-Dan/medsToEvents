@@ -11,14 +11,15 @@ import (
 func main() {
 
 	if len(os.Args) < 4 {
-		println("Usage: medtocal <medication-name> <hours-interval> <total-days>")
+		println("Usage: medtocal <medication-name> <dose-per-take> <hours-interval> <total-days>")
 		os.Exit(1)
 	}
 
 	// input variables
 	medicationName := os.Args[1]
-	hoursInterval, _ := strconv.Atoi(os.Args[2])
-	totalDays, _ := strconv.Atoi(os.Args[3])
+	dosePerTake := os.Args[2]
+	hoursInterval, _ := strconv.Atoi(os.Args[3])
+	totalDays, _ := strconv.Atoi(os.Args[4])
 
 	// generate calendar
 	calendar := ics.NewCalendar()
@@ -31,7 +32,7 @@ func main() {
 
 		// generate event
 		event := calendar.AddEvent(medicationName+dateTime.Format("20060102T150405"))
-		event.SetSummary(medicationName)
+		event.SetSummary(medicationName+"-"+dosePerTake+"-"+strconv.Itoa(hoursInterval)+"hrs")
 		event.SetStartAt(dateTime)
 		event.SetEndAt(dateTime.Add(time.Minute * 30))
 		event.AddRrule("FREQ=DAILY;COUNT=" + strconv.Itoa(totalDays))
