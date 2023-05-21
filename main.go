@@ -43,7 +43,7 @@ func main() {
 	// event.SetLocation()
 
 	// write calendar to stdout with calendar.SerializeTo
-	writer, err := os.Create(finalName + ".ics")
+	writer, err := os.Create(finalName + "-" +strconv.Itoa(totalDays)+"days.ics")
 	if err != nil {
 		panic(err)
 	}
