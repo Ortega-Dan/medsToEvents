@@ -10,7 +10,7 @@ import (
 
 func main() {
 
-	if len(os.Args) < 4 {
+	if len(os.Args) < 5 {
 		println("Usage: medtocal <medication-name> <dose-per-take> <hours-interval> <total-days>")
 		os.Exit(1)
 	}
