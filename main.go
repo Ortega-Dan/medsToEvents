@@ -21,6 +21,8 @@ func main() {
 	hoursInterval, _ := strconv.Atoi(os.Args[3])
 	totalDays, _ := strconv.Atoi(os.Args[4])
 
+	finalName := medicationName+"-"+dosePerTake+"-"+strconv.Itoa(hoursInterval)+"hrs"
+
 	// generate calendar
 	calendar := ics.NewCalendar()
 
@@ -32,7 +34,7 @@ func main() {
 
 		// generate event
 		event := calendar.AddEvent(medicationName+dateTime.Format("20060102T150405"))
-		event.SetSummary(medicationName+"-"+dosePerTake+"-"+strconv.Itoa(hoursInterval)+"hrs")
+		event.SetSummary(finalName)
 		event.SetStartAt(dateTime)
 		event.SetEndAt(dateTime.Add(time.Minute * 30))
 		event.AddRrule("FREQ=DAILY;COUNT=" + strconv.Itoa(totalDays))
@@ -41,7 +43,7 @@ func main() {
 	// event.SetLocation()
 
 	// write calendar to stdout with calendar.SerializeTo
-	writer, err := os.Create(medicationName + ".ics")
+	writer, err := os.Create(finalName + ".ics")
 	if err != nil {
 		panic(err)
 	}
